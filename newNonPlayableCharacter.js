@@ -23,24 +23,39 @@ function newNonPlayableCharacter(x, y) {
 
     setInterval(moveCharacter, 1)
 
-    function walkEast() {
-        direction = 'east'
+    async function walkEast(time) {
+        let walkEast = await sleep(time)
+        direction = 'east' 
         element.src = `./assets/red-character/east.gif`
+        sleep (time)
+        moveNPC ()
     }
 
-    function walkNorth() {
+
+    
+
+    async function walkNorth(time) {
+        let walkNorth = await sleep(time)
         direction = 'north'
         element.src = `./assets/red-character/north.gif`
+        sleep (time)
+        moveNPC()
     }
 
-    function walkWest() {
+    async function walkWest(time) {
+        let walkWest = await sleep(time)
         direction = 'west'
         element.src = `./assets/red-character/west.gif`
+        sleep (time)
+        moveNPC ()
     }
 
-    function walkSouth() {
+    async function walkSouth(time) {
+        let walkSouth = await sleep(time)
         direction = 'south'
         element.src = `./assets/red-character/south.gif`
+        sleep (time)
+            moveNPC ()
     }
 
     function stop() {
@@ -57,3 +72,29 @@ function newNonPlayableCharacter(x, y) {
         stop: stop
     }
 }
+
+npc.walkNorth(1400)
+    .then(() => npc.walkEast(1200))
+    .then(() => npc.walkSouth(300))
+    .then(() => npc.walkEast(1500))
+    .then(() => npc.walkSouth(1500))
+    .then(() => npc.walkWest(2700))
+    .then(() => npc.walkNorth(400))
+
+
+async function moveNPC(){
+    await npc.walkNorth(1400)
+    await npc.walkEast(1200)
+    await npc.walkSouth(300)
+    await npc.walkEast(1500)
+    await npc.walkSouth(1500)
+    await npc.walkWest(2700)
+    await npc.walkNorth(400)
+}
+
+function sleep(time){
+    return new Promise(resolve => {
+        setTimeout(resolve, time)
+    })  
+}
+
